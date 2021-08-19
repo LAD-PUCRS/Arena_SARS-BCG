@@ -3,6 +3,24 @@ import os
 #### THIS IS JUST AN EXAMPLE OF A get_job function
 # Get the 'next' job given set of id's of jobs either completed and running
 
+# [General Description]
+# This python script is responsible for configuring and initializing the dispatcher. 
+# The "dispatcher.start_dispatcher" function, besides called with the container image, hosts 
+# configuration, and other parameters, is provided a "next_job" function. 
+
+# [next_job argument]
+# Given a list of completed and still running jobs, this "next_job" function 
+# must return a next job description to be dispatched. It is called when 
+# there enough resources in one of the hosts for running it. 
+
+# [process_peptides function]
+# Every job is recognized by its id (a unique id), in the "process_peptides" 
+# function, the id is composed of the word "job" along with the start and 
+# stop steps representing the slice of all peptides that should be processed.
+# This "process_peptides" function then will be called, each time pointing to 
+# a slice of the whole list of peptides that was not processed before. 
+# This slice size goes according to a "grannularity" variable.
+
 
 curr_peptide = 1
 grannularity = 100
