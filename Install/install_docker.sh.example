@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# If the following variables are populated, the configuration will use TLS.
+# otherwise it will be insecure, anyone can access it.
+
+## The contents of ca.pem
+# read -r -d '' CA_PEM <<CONTENT
+# -----BEGIN CERTIFICATE-----
+# -----END CERTIFICATE-----
+# CONTENT
+
+## The contents of daemon-key.pem
+# read -r -d '' DAEMON_KEY <<CONTENT
+# -----BEGIN RSA PRIVATE KEY-----
+# -----END RSA PRIVATE KEY-----
+# CONTENT
+
+## The contents of daemon-cert.pem
+# read -r -d '' DAEMON_CERT <<CONTENT
+# -----BEGIN CERTIFICATE-----
+# -----END CERTIFICATE-----
+# CONTENT
+
+
+# Remove any existing installation
+apt-get update
+apt-get remove docker docker-engine docker.io containerd runc
+apt-get update
+
+# Set up the repository
+apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+apt-key fingerprint 0EBFCD88
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+# Install Docker
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# Add user to dockerfile
+usermod -aG docker "$(ls /home)"
+
+################################## Docker TLS Setup
+
+if [ ! -z "$CA_PEM" ] && [ ! -z "$DAEMON_KEY" ] && [ ! -z "$DAEMON_CERT" ]; then
+
+mkdir /etc/docker/ssl
+chmod 700 /etc/docker/ssl
+
+# Inject here the corresponding contents
+
+echo "$CA_PEM" > /etc/docker/ssl/ca.pem
+echo "$DAEMON_KEY" > /etc/docker/ssl/daemon-key.pem
+echo "$DAEMON_CERT" > /etc/docker/ssl/daemon-cert.pem
+
+# Fix permissions
+chmod 600 /etc/docker/ssl/*
+
+# Set the tls parameters
+sed -i 's/ExecStart.*/ExecStart=\nExecStart=\/usr\/bin\/dockerd -H fd:\/\/ --containerd=\/run\/containerd\/containerd.sock -H tcp:\/\/0.0.0.0:2375 --tlsverify --tlscacert=\/etc\/docker\/ssl\/ca.pem --tlskey=\/etc\/docker\/ssl\/daemon-key.pem --tlscert=\/etc\/docker\/ssl\/daemon-cert.pem/g' /lib/systemd/system/docker.service
+else
+# Unsecure Docker
+sed -i 's/ExecStart.*/ExecStart=\nExecStart=\/usr\/bin\/dockerd -H fd:\/\/ --containerd=\/run\/containerd\/containerd.sock -H tcp:\/\/0.0.0.0:2375/g' /lib/systemd/system/docker.service
+fi
+
+# Restart docker
+systemctl daemon-reload
+service docker restart
+
+exit 0

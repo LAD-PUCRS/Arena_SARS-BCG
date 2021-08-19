@@ -1,0 +1,7 @@
+.DS_Store
+2-ModelComplexByArenaDispatcher/dispatcher/output/*
+2-ModelComplexByArenaDispatcher/dispatcher/nohup*
+3-GetImages_PyMol/posProcessamento_Pymol/pymol
+3-GetImages_PyMol/posProcessamento_Pymol/PyMOL*
+posProcessamento_R/R-3.6.1*
+old/base_execution/data/*

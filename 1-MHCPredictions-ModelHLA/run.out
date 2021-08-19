@@ -1,0 +1,534 @@
+
+
+python mhcflurrySARS.py
+/data/base_execution
+Num of peptides: 9814
+List of HLA alleles: dict_keys(['HLA-A0101', 'HLA-A0201', 'HLA-A0202', 'HLA-A0301', 'HLA-A1101', 'HLA-A2402', 'HLA-B0702', 'HLA-B1503', 'HLA-B3501', 'HLA-B4001', 'HLA-B4403', 'HLA-B5101', 'HLA-C0401', 'HLA-C0501'])
+Forcing tensorflow backend.
+Using TensorFlow backend.
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/mhcflurry/common.py:57: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/mhcflurry/common.py:62: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2021-07-14 13:24:48.501629: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2021-07-14 13:24:48.529033: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300000000 Hz
+2021-07-14 13:24:48.531569: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x56478eef5650 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-07-14 13:24:48.531595: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+Read input CSV with 137396 rows, columns are: allele, peptide
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1630: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+Wrote: predictionsSARS.csv
+
+real	0m54.247s
+user	1m3.558s
+sys	0m9.796s
+
+
+python mhcflurryBCG.py
+/data/base_execution
+Num of peptides: 1242896
+List of HLA alleles: dict_keys(['HLA-A0101', 'HLA-A0201', 'HLA-A0202', 'HLA-A0301', 'HLA-A1101', 'HLA-A2402', 'HLA-B0702', 'HLA-B1503', 'HLA-B3501', 'HLA-B4001', 'HLA-B4403', 'HLA-B5101', 'HLA-C0401', 'HLA-C0501'])
+Forcing tensorflow backend.
+Using TensorFlow backend.
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/mhcflurry/common.py:57: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/mhcflurry/common.py:62: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2021-07-14 13:25:52.711638: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2021-07-14 13:25:52.737137: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2300000000 Hz
+2021-07-14 13:25:52.739844: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55b96df06130 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2021-07-14 13:25:52.739870: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+Read input CSV with 17400544 rows, columns are: allele, peptide
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/tensorflow_core/python/ops/resource_variable_ops.py:1630: calling BaseResourceVariable.__init__ (from tensorflow.python.ops.resource_variable_ops) with constraint is deprecated and will be removed in a future version.
+Instructions for updating:
+If using Keras pass *_constraint arguments to layers.
+WARNING:tensorflow:From /conda/envs/apegen/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+Wrote: predictionsBCG.csv
+
+real	84m14.885s
+user	112m57.160s
+sys	3m16.638s
+
+
+python model_hla.py
+/data/base_execution
+List of HLA alleles: dict_keys(['HLA-A0101', 'HLA-A0201', 'HLA-A0202', 'HLA-A0301', 'HLA-A1101', 'HLA-A2402', 'HLA-B0702', 'HLA-B1503', 'HLA-B3501', 'HLA-B4001', 'HLA-B4403', 'HLA-B5101', 'HLA-C0401', 'HLA-C0501'])
+Approximated time needed for modelling HLAs with MODELLER:
+2 minutes per HLA
+28 min
+0.47 h
+--------------------------------------------------------------------------------
+HLA-A*01:01
+Allele to model: HLA-A*01:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*0101 3bo8
+Downloading 3bo8
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.347184896469116 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -39670.761719
+>> Model assessment by DOPE potential
+DOPE score               : -39734.183594
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2425.40625   -39670.76172        1.00000
+target_sequence.B99990002.pdb     2316.63940   -39734.18359        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -39734.1835937500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 150.64667391777039 seconds.
+HLA-A*02:01
+Allele to model: HLA-A*02:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*0201 2v2w
+Downloading 2v2w
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 276
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.907968044281006 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -41160.871094
+>> Model assessment by DOPE potential
+DOPE score               : -41169.808594
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     1902.68127   -41160.87109        1.00000
+target_sequence.B99990002.pdb     1922.05627   -41169.80859        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -41169.8085937500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 146.90065145492554 seconds.
+HLA-A*02:02
+Allele to model: HLA-A*02:02
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*0201 2v2w
+Downloading 2v2w
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 276
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.83136296272278 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40700.003906
+>> Model assessment by DOPE potential
+DOPE score               : -40921.808594
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2153.58252   -40700.00391        1.00000
+target_sequence.B99990002.pdb     2325.55933   -40921.80859        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -40921.8085937500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 175.37899208068848 seconds.
+HLA-A*03:01
+Allele to model: HLA-A*03:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*0301 3rl1
+Downloading 3rl1
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.281646728515625 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40304.511719
+>> Model assessment by DOPE potential
+DOPE score               : -40224.593750
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2211.60449   -40304.51172        1.00000
+target_sequence.B99990002.pdb     2278.17896   -40224.59375        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -40304.5117187500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 168.8693082332611 seconds.
+HLA-A*11:01
+Allele to model: HLA-A*11:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*0301 3rl1
+Downloading 3rl1
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.315263986587524 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -39887.371094
+>> Model assessment by DOPE potential
+DOPE score               : -39854.886719
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2269.70410   -39887.37109        1.00000
+target_sequence.B99990002.pdb     2349.80078   -39854.88672        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -39887.3710937500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 161.7425000667572 seconds.
+HLA-A*24:02
+Allele to model: HLA-A*24:02
+Obtaining representative template from within supertype:
+Template allele, pdbcode: A*2402 3i6l
+Downloading 3i6l
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 365
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.241468906402588 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -39869.804688
+>> Model assessment by DOPE potential
+DOPE score               : -39961.332031
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2362.88208   -39869.80469        1.00000
+target_sequence.B99990002.pdb     2224.59521   -39961.33203        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -39961.3320312500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 165.36471676826477 seconds.
+HLA-B*07:02
+Allele to model: HLA-B*07:02
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*0702 4u1h
+Downloading 4u1h
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 277
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 31.04612946510315 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -39178.605469
+>> Model assessment by DOPE potential
+DOPE score               : -39504.921875
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2671.43140   -39178.60547        1.00000
+target_sequence.B99990002.pdb     2591.75732   -39504.92188        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -39504.9218750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 155.41965651512146 seconds.
+HLA-B*15:03
+Allele to model: HLA-B*15:03
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*2705 4g9d
+Downloading 4g9d
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 276
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.729424238204956 seconds.
+Creating model
+The following 1 residues contain 6-membered rings with poor geometries
+after transfer from templates. Rebuilding rings from internal coordinates:
+   <Residue 9:A (type TYR)>
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -39871.890625
+>> Model assessment by DOPE potential
+DOPE score               : -40130.617188
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2506.00439   -39871.89062        1.00000
+target_sequence.B99990002.pdb     2411.80469   -40130.61719        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -40130.6171875000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 150.617427110672 seconds.
+HLA-B*35:01
+Allele to model: HLA-B*35:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*0702 4u1h
+Downloading 4u1h
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 277
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 31.032018661499023 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40522.128906
+>> Model assessment by DOPE potential
+DOPE score               : -40414.539062
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2421.68140   -40522.12891        1.00000
+target_sequence.B99990002.pdb     2405.63647   -40414.53906        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -40522.1289062500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 156.9489405155182 seconds.
+HLA-B*40:01
+Allele to model: HLA-B*40:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*4002 1m6o
+Downloading 1m6o
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 276
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 31.039845943450928 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40729.835938
+>> Model assessment by DOPE potential
+DOPE score               : -40436.792969
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     1985.57031   -40729.83594        1.00000
+target_sequence.B99990002.pdb     2044.29871   -40436.79297        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -40729.8359375000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 151.2304186820984 seconds.
+HLA-B*44:03
+Allele to model: HLA-B*44:03
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*4002 1m6o
+Downloading 1m6o
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 276
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.717487573623657 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -41049.519531
+>> Model assessment by DOPE potential
+DOPE score               : -40602.464844
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2204.04077   -41049.51953        1.00000
+target_sequence.B99990002.pdb     2087.62915   -40602.46484        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -41049.5195312500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 175.73806238174438 seconds.
+HLA-B*51:01
+Allele to model: HLA-B*51:01
+Obtaining representative template from within supertype:
+Template allele, pdbcode: B*0702 4u1h
+Downloading 4u1h
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 362
+Length of processed alpha chain seq: 272
+Length of alpha chain in template: 277
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.977542638778687 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40381.214844
+>> Model assessment by DOPE potential
+DOPE score               : -40229.992188
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2652.38892   -40381.21484        1.00000
+target_sequence.B99990002.pdb     2578.67090   -40229.99219        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -40381.2148437500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 180.50528383255005 seconds.
+HLA-C*04:01
+Allele to model: HLA-C*04:01
+Allele is from serotype C: Using representative template
+Downloading 4nt6
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 366
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.208674430847168 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40600.195312
+>> Model assessment by DOPE potential
+DOPE score               : -40095.003906
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2201.78369   -40600.19531        1.00000
+target_sequence.B99990002.pdb     2492.18506   -40095.00391        1.00000
+
+Top model: target_sequence.B99990001.pdb (DOPE score -40600.1953125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 165.13991928100586 seconds.
+HLA-C*05:01
+Allele to model: HLA-C*05:01
+Allele is from serotype C: Using representative template
+Downloading 4nt6
+Removing signal and transmembrane portions of alpha chain seq
+Length of original alpha chain seq: 366
+Length of processed alpha chain seq: 270
+Length of alpha chain in template: 274
+Preparing receptor template
+Preparing target sequence
+Aligning target sequence with receptor template
+Aligning took 30.254407167434692 seconds.
+Creating model
+0 atoms in HETATM/BLK residues constrained
+to protein atoms within 2.30 angstroms
+and protein CA atoms within 10.00 angstroms
+0 atoms in residues without defined topology
+constrained to be rigid bodies
+>> Model assessment by DOPE potential
+DOPE score               : -40548.746094
+>> Model assessment by DOPE potential
+DOPE score               : -40580.269531
+
+>> Summary of successfully produced models:
+Filename                          molpdf     DOPE score    GA341 score
+----------------------------------------------------------------------
+target_sequence.B99990001.pdb     2229.21387   -40548.74609        1.00000
+target_sequence.B99990002.pdb     2201.67163   -40580.26953        1.00000
+
+Top model: target_sequence.B99990002.pdb (DOPE score -40580.2695312500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+Homology modelling took 161.41404557228088 seconds.
+
+real	47m19.297s
+user	64m12.476s
+sys	1m39.750s
+
+
+python filter500_SARS.py
+
+real	0m0.264s
+user	0m0.248s
+sys	0m0.016s
+
+
+python filter500_BCG.py
+
+real	0m29.097s
+user	0m28.751s
+sys	0m0.344s
+
+
+
