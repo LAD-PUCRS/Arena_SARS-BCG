@@ -1,24 +1,43 @@
-Execução manual de diversos passos
+## 2-ModelComplexByArenaDispatcher
 
-1. É necessário que todas as máquinas tenham o diretório ../in_data
- - Essa pasta é gerada em uma execução unica de instancia docker da etapa "1-MHCPredictions-ModelHLA"
+This step requires execution of a few manual procedures in order to enable the use of `ArenaDispatcher`.
 
-2. Criação de imagem (em todas as máquinas) pelo DockerFile
- - Execução: docker build . -t step2
+**1. Ensure in_data is Available on Every Machine**
 
-3. Configuração do arquivo dispatcher/hosts.cfg
- - O proprio arquivo apresenta descrição da configuração, porém deve exeirtir 1 linha para cada máquina do conjunto, onde a primeira informação de cada linha é o IP da máquina
+The directory created on the [previous step](../1-MHCPredictions-ModelHLA/README.md) and its data should be copied to all machines that will be used with `ArenaDispatcher`.
 
-4. Configuração do arquivo dispatcher/start.py
- - Para execução básica o script já está pronto (não necessária alteração), mas o proprio script documenta algumas configurações que  podem ser modificadas de acordo com a expertise do usuário.
+**2. Build Container Image**
 
-5. Acessar pasta do dispatcher e execução do mesmo
- - acesso a pasta: cd dispatcher
- - O dispatcher roda em apenas uma máquina, ele que inicia instancias docker de processamento nas demais máquinas do conjunto
- - Indica-se utilização de nohup: nohup python3 -u start.py &
+A container image must also be built in every machine used with `ArenaDispatcher`. Do note that this build copies the `in_data` directory to the image, so it's important to follow each procedure in order. 
 
-Pós execução:
- - O HLA, por conter calculos estocasticos, algumas modelagens podem não convergir. Por padrão o hla reinicia o calculo, porém nosso script Model-pepHLA-APE_Gen-LAD.py limita cada complexo a, no máximo, 5 erros. Aí pula para o proximo.
- - Desta forma, é possivel/provavel que nem todos complexos tenham um respectivo arquivo modelado (PDB).
- - Dependendo do conhecimento do usuário é possivel trabalhar os dados na pasta ../in_data para ter uma nova versão sómente com os complexos que  apresentaram falha, deste modo é possivel fazer um backup da  pasta output e reiniciar o processo do dispatcher (desta vez, apenas com os complexos que falharam na prieira execução)
- - Outra alternativa é remover a limitação do script Model-pepHLA-APE_Gen-LAD.py, porém é possivel que a execução do dispatcher tenha algumas instancias docker rodando infinitamnte o calculo de modelagem do mesmo complexo (sempre falhando).
+```sh
+docker build . -t step2
+```
+
+**3. Dispatcher Configuration**
+
+Each line of the file `dispatcher/hosts.cfg` represents a machine that can be used with `ArenaDispatcher`. The comma-separated values of every line are described in order as comments at the begining of the file. Every machine must have been setup with the docker installation script generated during the environment [setup](../install/README.md). In addition, the machine that will run `ArenaDispatcher` should have the directory `certs`, also generated during the environment [setup](../install/README.md).
+
+After editing the `dispatcher/hosts.cfg` file, the execution can begin. In case a non-default execution is desired (for example, running less tasks just as a test), the `dispatcher/start.py` file can be edited according to its comments' descriptions.
+
+**4. Run ArenaDispatcher**
+
+We suggest the use of `nohup` to run ArenaDispatcher as decribed below.
+
+```sh
+# Access the ArenaDispatcher directory
+cd dispatcher
+# Start running
+nohup python3 -u start.py &
+```
+
+After it begins, it will communicate with the Docker daemons of every machine described in `dispatcher/hosts.cfg`, coordinating the creation of containers for modelling all complexes in parallel. Whenever a container finishes it exports the modelled complexes along with log files and stores it on the machine running `ArenaDispatcher`. 
+
+In case a problem occurs while running `ArenaDispatcher` (for example machine restarts), the user should begin the execution of `dispatcher/start.py` again. It should be capable of recovering the information of its previous execution without the need to starr from the begining.
+
+**Post Processing**
+
+The process used to model the complexes is stochastic and some times it does not converge and the modelling process fails. We defined a limit of 5 errors to give up modelling a complex in the script `Model-pepHLA-APE_Gen-LAD.py`. If a complex cannot be modelled, it will try the next in line. Therefore, not every complex can be expected to be modelled. 
+
+Advanced users might manage to filter a list of complexes from the data available at the `../in_data` directory and configure `ArenaDispatcher` to try again to model them, with even more than a 5 error limit. Another alternative, although we do not recommend doing so as it could continue to run indefinetely, is to remove the 5 error limit from the script `Model-pepHLA-APE_Gen-LAD.py`.
+

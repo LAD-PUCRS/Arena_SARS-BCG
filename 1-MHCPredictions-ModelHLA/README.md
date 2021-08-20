@@ -1,33 +1,51 @@
-1. Criação de imagem (em uma única máquina) pelo DockerFile
- - Execução: docker build . -t step1
+## 1-MHCPredictions-ModelHLA
 
-2. Execução do run.sh. Dentro da instancia docker.
- - Primeiro crio a pasta in_data: mkdir ../in_data
- - Execução: docker run --rm -v $(pwd)/../in_data:/in_data step1  
+This step should be executed in a single machine after completing the environment [setup](../setup/README.md).
 
-2.1. Executa mhcflurrySARS.py
- - Entrada: sars_peptides.txt (9814 peptideos) e hlas.fasta (14 alelos)
- - Saida: predictionsSARS.csv
- - Tempo: 54.247s
+**1. Container Image Build**
 
-2.2 Executa mhcflurryBCG.py
- - Entrada: bcg_peptides.txt (1242896 peptideos) e hlas.fasta (14 alelos)
- - Saida: predictionsBCG.csv
- - Tempo: 84m14.885s
+Build the container that will be used in this step.
 
-2.3. Executa model_hla.py
- - Entrada: hlas.fasta (14 alelos)
- - Saida: .pdb de cada alelo
- - Tempo: 47m19.297s
+```sh
+docker build . -t step1
+```
+**2. Run Container Image**
 
-2.4. Executa filter500_SARS.py
- - Entrada: predictionsSARS.csv
- - Saida: "<alelo>_SARSpeps" para cada alelo 
- - Tempo: 0.264s
+Create a directory `in_data` on the repository root directory.
 
-2.5. Executa filter500_BCG.py
- - Entrada: predictionsBCG.csv
- - Saida: "<alelo>_BCGpeps" para cada alelo 
- - Tempo: 29.097s
+```sh
+mkdir ../in_data
+```
 
-2.6. Move os arquivos necessários para as proximas etapas em ../in_data 
+Create a container and start processing. When finished, the output will be stored on `../in_data`.
+
+```sh
+docker run --rm -v $(pwd)/../in_data:/in_data step1
+```
+
+The container execution will take some time. A description of the processing tasks of this container and their expected time is provided below.
+
+2.1. Execute mhcflurrySARS.py
+ - Input: sars_peptides.txt (9814 peptides) e hlas.fasta (14 alleles)
+ - Output: predictionsSARS.csv
+ - Time: 54.247s
+
+2.2 Execute mhcflurryBCG.py
+ - Input: bcg_peptides.txt (1242896 peptides) e hlas.fasta (14 alleles)
+ - Output: predictionsBCG.csv
+ - Time: 84m14.885s
+
+2.3. Execute model_hla.py
+ - Input: hlas.fasta (14 alleles)
+ - Output: .pdb de cada allele
+ - Time: 47m19.297s
+
+2.4. Execute filter500_SARS.py
+ - Input: predictionsSARS.csv
+ - Output: "<allele>_SARSpeps" for each allele 
+ - Time: 0.264s
+
+2.5. Execute filter500_BCG.py
+ - Input: predictionsBCG.csv
+ - Output: "<allele>_BCGpeps" for each allele
+ - Time: 29.097s
