@@ -1,6 +1,6 @@
 ## 1-MHCPredictions-ModelHLA
 
-This step should be executed in a single machine after completing the environment [setup](../setup/README.md).
+This step should be executed in a single machine after completing the environment [setup](../Install/README.md).
 
 **1. Container Image Build**
 

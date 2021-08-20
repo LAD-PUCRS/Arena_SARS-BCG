@@ -16,7 +16,7 @@ docker build . -t step2
 
 **3. Dispatcher Configuration**
 
-Each line of the file `dispatcher/hosts.cfg` represents a machine that can be used with `ArenaDispatcher`. The comma-separated values of every line are described in order as comments at the begining of the file. Every machine must have been setup with the docker installation script generated during the environment [setup](../install/README.md). In addition, the machine that will run `ArenaDispatcher` should have the directory `certs`, also generated during the environment [setup](../install/README.md).
+Each line of the file `dispatcher/hosts.cfg` represents a machine that can be used with `ArenaDispatcher`. The comma-separated values of every line are described in order as comments at the begining of the file. Every machine must have been setup with the docker installation script generated during the environment [setup](../Install/README.md). In addition, the machine that will run `ArenaDispatcher` should have the directory `certs`, also generated during the environment [setup](../Install/README.md).
 
 After editing the `dispatcher/hosts.cfg` file, the execution can begin. In case a non-default execution is desired (for example, running less tasks just as a test), the `dispatcher/start.py` file can be edited according to its comments' descriptions.
 
@@ -33,7 +33,7 @@ nohup python3 -u start.py &
 
 After it begins, it will communicate with the Docker daemons of every machine described in `dispatcher/hosts.cfg`, coordinating the creation of containers for modelling all complexes in parallel. Whenever a container finishes it exports the modelled complexes along with log files and stores it on the machine running `ArenaDispatcher`. 
 
-In case a problem occurs while running `ArenaDispatcher` (for example machine restarts), the user should begin the execution of `dispatcher/start.py` again. It should be capable of recovering the information of its previous execution without the need to starr from the begining.
+In case a problem occurs while running `ArenaDispatcher` (for example machine restarts), the user should begin the execution of `dispatcher/start.py` again. It should be capable of recovering the information of its previous execution without the need to start from the begining.
 
 **Post Processing**
 
