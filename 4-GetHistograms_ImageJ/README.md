@@ -1,44 +1,33 @@
-# Histogram 2 CSV Plugin
+## 4-GetHistograms_ImageJ
 
-Building the Plugin
+This step involves the use of ImageJ to extract the histogram data of complexes' superfices. We developed a plugin [historam2csv](histogram2csv/README.md) which can be run either using a shell or from ImageJ UI menu, allowing multiple PNGs to be processed at once and storing their histogram information into CSVs.
+
+
+**1. Create an Output Directory**
+
+Create an output directory which will store a corresponding `CSV` for each complex `PNG` obtained from the [PyMol step](../3-GetImages_PyMol/README.md).
 
 ```sh
-cd histogram2csv
-bash build.sh
+mkdir output
 ```
 
-Standalone Scripted Execution 
+**2. Run ImageJ Standalone JAR**
+
+To run this JAR, we recommend at least Java `v1.8`.
 
 ```sh
-java -jar Histogram_2_CSV.jar <roi.zip> <imgdir> <img.png> <imgdir-2> <optional-output-dir>
+java -jar histogram2csv/Histogram_2_CSV.jar RoiSet_46diag.zip ../3-GetImages_PyMol/output output
 ```
 
-Running on Ubuntu Server (Since there's no display)
+Alternatively, if there is any problem related to java, you may want to install `xvfb` and run it using the method below with `nohup`.
 
 ```sh
-sudo apt install -y xvfb
-xvfb-run java -jar Histogram_2_CSV.jar <roi.zip> <imgdir> <img.png> <imgdir-2> <optional-output-dir>
-```
-
-Running background processing all files on Ubuntu Server (Since there's no display)
-```sh
-sudo apt install -y xvfb
+# install xvfb
+sudo apt-get install xvfb
+# Give permission
+chmod +x run.sh
+# Run it using
 nohup bash -c 'time ./run.sh' &> imagej_plugin.log &
 ```
 
-
-**Notes on Scripted Mode**
-
-- All output is in the format of original_name.csv
-
-- When passing a directory, a pre-processing step is done which recursively discovers files in the given directory and subdirectories aswell.
-
-- If a directory is passed as an argument for source images, only files with an image format supported by ImageJ will be considered. If one file fails, the execution halts due to ImageJ exception treatment.
-
-- Para execução em background é necessário revisar variáveis do script run.sh
-
-- O roiset neste repositório foi criado manualmente dentro do ImageJ depois exportado para o arquivo zip. Talvez seja necessário uma revisão do mesmo.
-
-
-
-
+More information on how to build and run the plugin is available on [histogram2csv/README.md](histogram2csv/README.md).

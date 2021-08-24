@@ -1,6 +1,6 @@
 #!/bin/bash
-PDBS_PATH=../dispatcher/output/selected_structures
-PNGS_PATH=../dispatcher/output/posProcessamentoPyMol
+PDBS_PATH=../2-ModelComplexByArenaDispatcher/dispatcher/output/selected_structures
+PNGS_PATH=./output
 PYMOL_BIN_PATH=pymol/bin
 COUNT_PNGS=0
 

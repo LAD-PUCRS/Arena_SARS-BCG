@@ -40,4 +40,3 @@ In case a problem occurs while running `ArenaDispatcher` (for example machine re
 The process used to model the complexes is stochastic and some times it does not converge and the modelling process fails. We defined a limit of 5 errors to give up modelling a complex in the script `Model-pepHLA-APE_Gen-LAD.py`. If a complex cannot be modelled, it will try the next in line. Therefore, not every complex can be expected to be modelled. 
 
 Advanced users might manage to filter a list of complexes from the data available at the `../in_data` directory and configure `ArenaDispatcher` to try again to model them, with even more than a 5 error limit. Another alternative, although we do not recommend doing so as it could continue to run indefinetely, is to remove the 5 error limit from the script `Model-pepHLA-APE_Gen-LAD.py`.
-
